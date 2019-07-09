@@ -3,8 +3,6 @@ from __future__ import absolute_import
 import os
 import tempfile
 
-import django
-
 """
 Django settings for ckeditor_demo project.
 
@@ -28,27 +26,22 @@ SECRET_KEY = 'cwog(6mx-+m9-@*n7jsn+*q4in*+nss_nv+s0da39ail@=x(ne'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-if django.VERSION >= (1, 8):
-    TEMPLATES = [
-        {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': [],
-            'APP_DIRS': True,
-            'OPTIONS': {
-                'context_processors': [
-                    'django.template.context_processors.debug',
-                    'django.template.context_processors.request',
-                    'django.contrib.auth.context_processors.auth',
-                    'django.contrib.messages.context_processors.messages',
-                ],
-                'debug': DEBUG
-            },
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+            'debug': DEBUG
         },
-    ]
-
-else:
-    TEMPLATE_DEBUG = True
-
+    },
+]
 
 ALLOWED_HOSTS = []
 
@@ -72,19 +65,21 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'ckeditor',
     'ckeditor_uploader',
     'ckeditor_demo.demo_application',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+]
 
 ROOT_URLCONF = 'ckeditor_demo.urls'
 
@@ -124,4 +119,7 @@ MEDIA_ROOT = os.path.join(tempfile.gettempdir(), 'ck_media')
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
-CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+CKEDITOR_THUMBNAIL_SIZE = (300, 300)
+CKEDITOR_IMAGE_QUALITY = 40
+CKEDITOR_BROWSE_SHOW_DIRS = True
+CKEDITOR_ALLOW_NONIMAGE_FILES = True
