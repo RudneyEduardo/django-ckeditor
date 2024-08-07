@@ -131,7 +131,7 @@ class CKEditorWidget(forms.Textarea):
             renderer = get_default_renderer()
         if value is None:
             value = ''
-        final_attrs = self.build_attrs(self.attrs, attrs, name=name)
+        final_attrs = self.build_attrs(attrs, { 'name': name } )
         self._set_config()
         external_plugin_resources = [[force_text(a), force_text(b), force_text(c)]
                                      for a, b, c in self.external_plugin_resources]
